@@ -7,11 +7,9 @@ Gem::Specification.new do |s|
   s.version     = DressUp::VERSION
   s.authors     = ["Morgan Brown"]
   s.email       = ["brown.mhg@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
+  s.homepage    = "https://github.com/mhgbrown/dress_up"
+  s.summary     = "Enable and disable sets of method overrides"
   s.description = %q{TODO: Write a gem description}
-
-  s.rubyforge_project = "dress_up"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
