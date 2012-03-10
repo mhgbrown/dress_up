@@ -28,19 +28,36 @@ describe DressUp do
     Duck.respond_to?(:costume).should == true
   end
 
-  it "should allow the specification of return values from a particular method" do
+  # worthless?
+  it "should allow the specification of return values based on method name" do
+    lambda { Duck.costume(:dog, :speak => "Woof!") }.should_not raise_error
+  end
+
+  it "should provide a method to put on a costume" do
+  end
+
+  it "should provide raise an error when you try to put on a costume that doesn't exist" do
+  end
+
+  it "should provide a way to take off a costume" do
+  end
+
+  it "should return nothing if you try to take off a costume that is not on" do
+  end
+
+  it "should override the methods supplied by the costume and return the specified values" do
+  end
+
+  it "should create a method supplied by the costume when it does not exist on the target object" do
   end
 
   it "should allow the specification of multiple costumes" do
   end
 
+  it "should provide a method to get all the costumes" do
+  end
+
   it "should replace an old costume with a new costume of the same name" do
-  end
-
-  it "should provide a way to put on a costume" do
-  end
-
-  it "should provide a way to take off a costume" do
   end
 
   describe "when a costume is already on" do
