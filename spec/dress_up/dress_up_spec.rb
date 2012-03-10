@@ -4,25 +4,28 @@ describe DressUp do
 
   before(:all) do
 
-    # class Duck
-    #   attr_accessor :name, :age
-    #
-    #   def initialize(name, age)
-    #     @name, @age = name, age
-    #   end
-    #
-    #   def speak
-    #     "Quack!"
-    #   end
-    #
-    #   def youngsters
-    #     [Duck.new("John", 0.5), Duck.new("Julia", 0.5)]
-    #   end
-    # end
+    class Duck
+      include DressUp::Interface
+
+      attr_accessor :name, :age
+
+      def initialize(name, age)
+        @name, @age = name, age
+      end
+
+      def speak
+        "Quack!"
+      end
+
+      def youngsters
+        [Duck.new("John", 0.5), Duck.new("Julia", 0.5)]
+      end
+    end
 
   end
 
   it "should provide a method to declare a costume" do
+    Duck.respond_to?(:costume).should == true
   end
 
   it "should allow the specification of return values from a particular method" do
