@@ -38,9 +38,10 @@ describe DressUp do
     lambda { Duck.costume(:speak => "Woof!") }.should raise_error
   end
 
-  describe "when a costume has been declared" do
+  describe "when some costumes have been declared" do
     before(:each) do
       Duck.costume(:dog, :speak => "Woof!", :name= => lambda {|value| @name = value + " Dog"})
+      Duck.costume(:robosoldier, :speak => "You will be terminated!", :kills => 57)
     end
 
     it "should provide a method to get that costume" do
@@ -83,6 +84,7 @@ describe DressUp do
     end
 
     it "should allow the specification of multiple costumes" do
+      # needed?
     end
 
     it "should provide a method to get all the costumes" do
@@ -95,48 +97,45 @@ describe DressUp do
       duck.name = "Jeffrey"
       duck.name.should == "Jeffrey"
     end
-  end
 
-  # what happens if you redefined a costume before it has been taken off?
+    describe "when a costume is already on" do
+      before(:each) do
+        duck.put_on(:dog)
+      end
 
-  describe "when a costume is already on" do
+      # or should this somehow merge the return values?
+      it "any new costume that is put on should override the current costume's return values where they overlap" do
+        duck.put_on(:robosoldier)
+        duck.speak.should == "You will be terminated!"
+        duck.name = "T2600"
+        duck.name.should == "T2600 Dog"
+        duck.kills.should == 57
+      end
 
-    before(:each) do
-      Duck.costume(:dog, :speak => "Woof!", :name= => lambda {|value| @name = value + " Dog"})
-      Duck.costume(:robosoldier, :speak => "You will be terminated!", :kills => 57)
-      duck.put_on(:dog)
+      it "and then when the costume is taken off, the object's method should return what they originally did" do
+        duck.put_on(:robosoldier)
+        duck.take_off(:robosoldier)
+        duck.speak.should == "Woof!"
+        duck.respond_to?(:kills).should == false
+      end
+
+      it "should provide a way to access all the costumes that are on (an outfit) in the order that they were put on" do
+        duck.outfit.should == "?" # DressUp::Outfit some sort of outfit (set of costumes)
+      end
     end
 
-    # or should this somehow merge the return values?
-    it "any new costume that is put on should override the current costume's return values where they overlap" do
-      duck.put_on(:robosoldier)
-      duck.speak.should == "You will be terminated!"
-      duck.name = "T2600"
-      duck.name.should == "T2600 Dog"
-      duck.kills.should == 57
+    it "should return nil if you try to get an outfit with no costumes on" do
+      duck.outfit.should == nil
     end
 
-    it "and then when the costume is taken off, the object's method should return what they originally did" do
-      duck.put_on(:robosoldier)
-      duck.take_off(:robosoldier)
-      duck.speak.should == "Woof!"
-      duck.respond_to?(:kills).should == false
+    it "should provde a way to put on all the costumes" do
+      duck.dress_up
+      # test for the intersection of all costumes!
     end
 
+    it "should provide a way to take off all costumes" do
+      duck.dress_down
+      # test for no costume modifications!
+    end
   end
-
-  it "should provide a way to access all the costumes that are on in the order that they were put on" do
-    duck.outfit.should == "?" # some sort of outfit (set of costumes)
-  end
-
-  it "should provde a way to put on all the costumes" do
-    duck.dress_up
-    # test for the intersection of all costumes!
-  end
-
-  it "should provide a way to take off all costumes" do
-    duck.dress_down
-    # test for no costume modifications!
-  end
-
 end
