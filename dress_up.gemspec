@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["brown.mhg@gmail.com"]
   s.homepage    = "https://github.com/mhgbrown/dress_up"
   s.summary     = "Enable and disable sets of method overrides"
-  s.description = %q{TODO: Write a gem description}
+  s.description = "Dress Up allows you to specify named sets of method overrides that you can selectively enable and disable."
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
