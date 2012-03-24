@@ -40,7 +40,7 @@ module DressUp
     private
 
     # Change the getup of this outfit safely by removing
-    # all of the overrides, rebuilding the getup and finally 
+    # all of the overrides, rebuilding the getup and finally
     # reapplying the overrides. Takes a block in which it is assumed
     # changes to the costumes will be made.
     def change_getup(&block)
@@ -60,29 +60,21 @@ module DressUp
     # Apply the getup (overrides) to the object.
     def suit_up
       @getup.each do |method_name, callable|
-        define_singleton_method(@object, method_name, &callable)
+        @object.send(:define_singleton_method, method_name, &callable)
       end
     end
 
     # Remove the overrides from the object.
     def peel_down
       @getup.each do |method_name, _|
-        remove_singleton_method(@object, method_name)
+        remove_singleton_method(method_name)
       end
     end
 
-    # Define a singleton method on the given context with the given name
-    # and callable/block.
-    def define_singleton_method(context, name, callable=nil, &block)
-      block ||= callable
-      metaclass = context.instance_eval "class << self; self; end"
-      metaclass.send(:define_method, name, block)
-    end
-
-    # Remove a singleton method from the given context.  Does not completely
+    # Remove a singleton method from the object.  Does not completely
     # undefine the method from the context.
-    def remove_singleton_method(context, name)
-      metaclass = context.instance_eval "class << self; self; end"
+    def remove_singleton_method(name)
+      metaclass = @object.instance_eval "class << self; self; end"
       metaclass.send(:remove_method, name)
     end
 
