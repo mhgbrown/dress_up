@@ -44,8 +44,18 @@ describe DressUp do
       Duck.costume(:robosoldier, :speak => "You will be terminated!", :kills => 57)
     end
 
-    it "should provide a method to get that costume" do
-      Duck.costume(:dog).should == "?"
+    it "there should be a way to get the declared costumes individually" do
+      dog_costume = Duck.costume(:dog)
+      dog_costume.class.should == DressUp::Costume
+      dog_costume.name.should == :dog
+      dog_costume.overrides[:speak].call.should == "Woof!"
+      dog_costume.overrides[:name=].call("Joe").should == "Joe Dog"
+    end
+
+    it "there should be a way to get all the costumes" do
+      Duck.closet.length.should == 2
+      Duck.closet[:dog].class.should == DressUp::Costume
+      Duck.closet[:robosoldier].class.should == DressUp::Costume
     end
 
     it "should provide a method to put on a costume, which will override the specified costume methods to return the specified values" do
@@ -60,7 +70,7 @@ describe DressUp do
     end
 
     it "should provide raise an error when you try to put on a costume that doesn't exist" do
-      lambda { duck.put_on(:cow) }.should raise_error(DressUp::UndefinedCostumeError)
+      lambda { duck.put_on(:cow) }.should raise_error(DressUp::Errors::UndefinedCostumeError)
     end
 
     it "should provide a way to take off a costume" do
@@ -74,7 +84,7 @@ describe DressUp do
     end
 
     it "should raise an error if you try to take off a costume that does not exist" do
-      lambda { duck.take_off(:cow) }.should raise_error(DressUp::UndefinedCostumeError)
+      lambda { duck.take_off(:cow) }.should raise_error(DressUp::Errors::UndefinedCostumeError)
     end
 
     it "should create a method supplied by the costume when it does not exist on the target object" do
@@ -83,16 +93,10 @@ describe DressUp do
       duck.kills.should == 57
     end
 
-    it "should allow the specification of multiple costumes" do
-      # needed?
-    end
-
-    it "should provide a method to get all the costumes" do
-      duck.closet.should == "?"
-    end
-
     it "should replace an old costume with a new costume of the same name" do
       Duck.costume(:dog, :speak => "Bark!")
+      duck.take_off(:dog)
+      duck.put_on(:dog)
       duck.speak.should == "Bark!"
       duck.name = "Jeffrey"
       duck.name.should == "Jeffrey"
@@ -119,8 +123,10 @@ describe DressUp do
         duck.respond_to?(:kills).should == false
       end
 
-      it "should provide a way to access all the costumes that are on (an outfit) in the order that they were put on" do
-        duck.outfit.should == "?" # DressUp::Outfit some sort of outfit (set of costumes)
+      it "should provide a way to access all the costumes that are on (an outfit)" do
+        duck.outfit.class.should == DressUp::Outfit
+        duck.outfit.costumes[:dog][:name=].should == Duck.closet[:dog][:name=]
+        duck.outfit.costumes[:dog][:speak].should == Duck.closet[:dog][:speak]
       end
     end
 
@@ -130,12 +136,19 @@ describe DressUp do
 
     it "should provde a way to put on all the costumes" do
       duck.dress_up
-      # test for the intersection of all costumes!
+      duck.speak.should == "You will be terminated!"
+      duck.name = "George"
+      duck.name.should == "George Dog"
+      duck.kills.should == 57
     end
 
     it "should provide a way to take off all costumes" do
+      duck.dress_up
       duck.dress_down
-      # test for no costume modifications!
+      duck.speak.should == "Quack!"
+      duck.name = "Daffy"
+      duck.name.should == "Daffy"
+      duck.respond_to?(:kills).should == false
     end
   end
 end
