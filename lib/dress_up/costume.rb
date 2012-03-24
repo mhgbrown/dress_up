@@ -18,7 +18,7 @@ module DressUp
       end
     end
 
-    # Retreive an override with its identifier
+    # Retreive an override by its identifier
     def [](override)
       @overrides[override]
     end

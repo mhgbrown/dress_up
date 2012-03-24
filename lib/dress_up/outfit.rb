@@ -60,7 +60,7 @@ module DressUp
     # Apply the getup (overrides) to the object.
     def suit_up
       @getup.each do |method_name, callable|
-        @object.send(:define_singleton_method, method_name, &callable)
+        @object.define_singleton_method(method_name, &callable)
       end
     end
 
