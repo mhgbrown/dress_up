@@ -8,10 +8,14 @@ Dress Up relies on the Ruby 1.9.X ordering of Hash entries.
 Below is the Duck class that has defined two costumes: dog and robosoldier.  The dog costume overrides the ```name=``` method to append "Dog" and the ```speak``` method to return "Woof!".  The robosoldier costume overrides ```speak``` as well and adds a new method, ```terminations```.
 
 	class Duck
+		# include the Dress Up functionality
 		include DressUp::Interface
+
 		attr_accessor :name, :age
 
+		# define a dog costume
 		costume :dog, :name= => lambda {|name| @name = name + " Dog"}, :speak => "Woof!"
+		# define a robosoldier costume
 		costume :robosoldier, :speak => lambda {"I will terminate you! " + super()}, :terminations => 23
 
 		def initialize(name, age)
