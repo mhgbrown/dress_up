@@ -3,7 +3,6 @@ require 'spec_helper'
 describe DressUp do
 
   before(:each) do
-
     class Duck
       include DressUp::Interface
 
@@ -16,12 +15,7 @@ describe DressUp do
       def speak
         "Quack!"
       end
-
-      def youngsters
-        [Duck.new("John", 0.5), Duck.new("Julia", 0.5)]
-      end
     end
-
   end
 
   after(:each) do
