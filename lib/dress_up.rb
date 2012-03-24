@@ -5,5 +5,4 @@ require "dress_up/outfit"
 require "dress_up/errors"
 
 module DressUp
-  # Your code goes here...
 end

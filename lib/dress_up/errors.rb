@@ -1,4 +1,5 @@
 module DressUp
+  # Errors holds DressUp specific errors.
   module Errors
 
     # UndefinedCostumeError is raised when an operation
