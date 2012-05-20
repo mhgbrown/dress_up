@@ -5,4 +5,11 @@ require "dress_up/outfit"
 require "dress_up/errors"
 
 module DressUp
+
+  # include DressUp::Interface if DressUp
+  # is included
+  def self.included(base)
+    base.send :include, DressUp::Interface
+  end
+
 end

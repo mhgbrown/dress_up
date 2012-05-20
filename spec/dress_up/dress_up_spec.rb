@@ -4,7 +4,7 @@ describe DressUp do
 
   before(:each) do
     class Duck
-      include DressUp::Interface
+      include DressUp
 
       attr_accessor :name, :age
 
