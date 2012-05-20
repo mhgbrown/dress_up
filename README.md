@@ -1,5 +1,5 @@
 # Dress Up [![Build Status](https://secure.travis-ci.org/mhgbrown/dress_up.png)](http://travis-ci.org/mhgbrown/dress_up)
-Let's play dress-up! Dress Up allows you to specify named sets of method overrides that you can selectively enable and disable.
+Let's play dress-up! Dress Up allows you to specify named sets of method overrides that you can selectively enable and disable.  It makes for a sort of an on-the-fly decorator pattern.
 
 ## Compatibility
 Dress Up relies on the Ruby 1.9.X ordering of Hash entries.
@@ -9,7 +9,7 @@ Below is the Duck class that has defined two costumes: dog and robosoldier.  The
 
 	class Duck
 		# include the Dress Up functionality
-		include DressUp::Interface
+		include DressUp
 
 		attr_accessor :name, :age
 

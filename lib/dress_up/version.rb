@@ -1,3 +1,3 @@
 module DressUp
-  VERSION = "1.0.0a"
+  VERSION = "1.0.1"
 end
