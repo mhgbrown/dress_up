@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = DressUp::VERSION
   s.authors     = ["Morgan Brown"]
   s.email       = ["brown.mhg@gmail.com"]
-  s.homepage    = "https://github.com/discom4rt/dress_up"
+  s.homepage    = "https://github.com/mhgbrown/dress_up"
   s.summary     = "Enable and disable sets of method overrides"
   s.description = "Dress Up allows you to specify named sets of method overrides that you can selectively enable and disable."
 
